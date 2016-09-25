@@ -1,0 +1,66 @@
+package dd_core;
+
+import com.sun.corba.se.impl.protocol.AddressingDispositionException;
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
+import dd_xlreader.Xls_Reader;
+import org.junit.Rule;
+import org.junit.rules.ErrorCollector;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.server.SeleniumServer;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+import java.util.logging.Logger;
+
+public class testCore {
+
+    public static RemoteWebDriver selenium = null;
+
+    public static Properties config = new Properties();
+
+    public static Properties object = new Properties();
+
+    public static Xls_Reader excel = null;
+
+    public static Logger app_Logs = Logger.getLogger("devpinoyLogger");
+
+    public static SeleniumServer server = null;
+
+    @Rule
+    public ErrorCollector ec = new ErrorCollector();
+
+    public static void init() throws Exception {
+        if (selenium == null) {
+            SeleniumServer server = new SeleniumServer();
+            server.boot();
+            // server.start();
+
+            FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "//src//dd_properties//config.properties");
+            config.load(fis);
+            app_Logs.debug("Loading config properties file");
+
+            fis = new FileInputStream(System.getProperty("user.dir") + "//src//dd_properties//objects.properties");
+            object.load(fis);
+
+            excel = new Xls_Reader(System.getProperties("user.dir") + "//src/dd_properties//testData.xls");
+
+            selenium = new FirefoxDriver();
+            selenium.manage().window().maximize();
+            selenium.get(config.getProperty("testsite"));
+
+        }
+    }
+
+    public static void stopServer() throws AddressingDispositionException, MessagingException {
+        System.out.println("Sending mail...");
+        SendMailUsingAuthentication mail = new SendMailUsingAuthentication();
+        mail.postMail(SendMailUsingAuthentication.emailList, SendMailUsingAuthentication.emailSubjectText,
+                SendMailUsingAuthentication.emailMsgTxt, SendMailUsingAuthentication.);
+        System.out.println("Stopping selenium server...");
+        server.stop();
+
+
+    }
+
+}

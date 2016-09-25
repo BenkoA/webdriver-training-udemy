@@ -1,0 +1,73 @@
+<project name="webdriver-training-udemy" default="dist" basedir=".">
+    <description>
+        simple example build file
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <property name="wspace.home" value="${basedir}"/>
+    <property name="wspace.jars" value="${wspace.home}/jars"/>
+    <property name="test.dest" value="${wspace.home}/build"/>
+    <property name="test.src" value="${wspace.home}/src"/>
+    <property name="test.reportsDir" value="${wspace.home}/reports"/>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init, clean" description="compile the source">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <delete includeemptydirs="true" quiet="true">
+            <fileset dir="${test.dest}" includes="**/*" />
+        </delete>
+        <echo message="making directory..." />
+        <mkdir dir="${test.dest}" />
+        <javac
+            debug="true"
+            destdir="${test.dest}"
+            srcdir="${test.src}"
+            target="1.5"
+            classpath="${test.classpath}"
+            />
+    </target>
+
+    <target name="run" description="run the source">
+        <delete includeemptydirs="true" quiet="true">
+            <fileset dir="${test.reportsDir}" includes="**/*" />
+        </delete>
+        <java jar="${wspace.jars}" fork="true" spawn="true" />
+        <junit fork="yes" haltonfailure="no" printsummary="yes">
+            <classpath refid="testcase.path" />
+            <batchtest todir="${test.reportsDir}" fork="true">
+                <fileset dir="${test.dest}">
+                    <include name="ParameterTestcase.class" />
+                </fileset>
+            </batchtest>
+            <formatter type="xml" />
+            <classpath refid="testcase.path" />
+        </junit>
+        <junitreport todir="${test.reportsDir}">
+            <fileset dir="${test.reportsDir}">
+                <include name="TEST-*.xml" />
+            </fileset>
+        </junitreport>
+    </target>
+
+    <target name="dist" depends="compile"
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+    </target>
+
+    <target name="clean" description="clean up">
+        <delete dir="${test.dest}"/>
+    </target>
+</project>
