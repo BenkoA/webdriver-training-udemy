@@ -1,6 +1,7 @@
 package dd_util;
 
 import dd_core.testCore;
+import dd_xlreader.Xls_Reader;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -13,12 +14,7 @@ public class TestUtil extends testCore {
     public static boolean isExecutable(String testName) {
         for(int rowNum = 2; rowNum <=excel.getRowCount("test_suite"); rowNum++){
             if (excel.getCelLData("test_suite", "TCID", rowNum).equals(testName)){
-                if (excel.getCellData("test_suite", "Runmode", rowNum).equalsIgnoreCase("Y")){
-                    return true;
-                }
-                else {
-                    return false;
-                }
+                return excel.getCellData("test_suite", "Runmode", rowNum).equalsIgnoreCase("Y");
             }
         }
         return false;
@@ -32,8 +28,7 @@ public class TestUtil extends testCore {
 
         int rows = excel.getRowCount(testName)-1;
         if (rows <= 0) {
-            Object[][] testData = new Object[1][0];
-            return testData;
+            return new Object[1][0];
         }
 
         rows = excel.getRowCount(testName);

@@ -12,6 +12,7 @@
     <property name="test.dest" value="${wspace.home}/build"/>
     <property name="test.src" value="${wspace.home}/src"/>
     <property name="test.reportsDir" value="${wspace.home}/reports"/>
+    <property name="test.classpath" value="${wspace.home}/bin"/>
 
     <target name="init">
         <!-- Create the time stamp -->
@@ -45,7 +46,7 @@
             <classpath refid="testcase.path" />
             <batchtest todir="${test.reportsDir}" fork="true">
                 <fileset dir="${test.dest}">
-                    <include name="ParameterTestcase.class" />
+                    <include name="demoProjects.ParameterTestcase.class" />
                 </fileset>
             </batchtest>
             <formatter type="xml" />

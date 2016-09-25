@@ -7,18 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 
 @RunWith(Parameterized.class)
 public class loginTest extends testCore {
 
-    String username;
-    String password;
-    String is_correct;
+    private String username;
+    private String password;
+    private String is_correct;
 
     private int testCount = 0;
 
-    public logintTest(String username, String password, String is_correct){
+    public void logintTest(String username, String password, String is_correct){
         this.username = username;
         this.password = password;
         this.is_correct = is_correct;
@@ -29,13 +28,13 @@ public class loginTest extends testCore {
         app_Logs.debug("Start Login");
 
         if(TestUtil.isExecutable("loginTest")){
-            Assume.assumeTrue(true);;
+            Assume.assumeTrue(true);
         }
     }
 
     @Test
     public void testLogin() throws Exception {
-        testCount++;
+        this.testCount++;
 
         System.out.println(username + ": " + password + ": " + is_correct);
         selenium.get("/stockmarketsindia/");

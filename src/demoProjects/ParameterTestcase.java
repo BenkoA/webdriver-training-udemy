@@ -1,3 +1,5 @@
+package demoProjects;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -8,10 +10,10 @@ import java.util.Collection;
 @RunWith(Parameterized.class)
 public class ParameterTestcase {
 
-    String firstName;
-    String lastName;
-    String password;
-    int age;
+    private final String firstName;
+    private final String lastName;
+    private final String password;
+    private final int age;
 
     public ParameterTestcase(String firstName, String lastName, String password, int age){
         this.firstName = firstName;

@@ -1,3 +1,5 @@
+package demoProjects;
+
 import org.junit.*;
 
 /**
@@ -5,7 +7,7 @@ import org.junit.*;
  */
 public class testingJunit {
 
-    public static boolean validateDB(){
+    private static boolean validateDB(){
         return false;
     }
 

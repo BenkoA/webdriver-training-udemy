@@ -1,3 +1,5 @@
+package demoProjects;
+
 import org.junit.Test;
 
 /**

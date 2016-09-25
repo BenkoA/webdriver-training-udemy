@@ -1,7 +1,10 @@
 package dd_tests;
 
-/**
- * Created by adrianbenko on 25/09/2016.
- */
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({loginTest.class, registerUserTest.class})
 public class testSuite {
+
 }

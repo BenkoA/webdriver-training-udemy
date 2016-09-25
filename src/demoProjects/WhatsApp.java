@@ -1,3 +1,5 @@
+package demoProjects;
+
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -7,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WhatsApp {
 
-    public static RemoteWebDriver driver;
+    private static RemoteWebDriver driver;
 
     public static void main(String[] args){
 
